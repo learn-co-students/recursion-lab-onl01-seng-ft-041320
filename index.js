@@ -1,58 +1,50 @@
-// Code your solution here!
-
-function printString(myString) {
-    console.log(myString[0]);
-   
-    if (myString.length > 1) {
-      let mySubString = myString.substring(1, myString.length);
-      printString(mySubString);
-    } else {
-      return true;
+function printString(string){
+    console.log(string[0])
+    if(string.length > 1){
+        printString(string.slice(1))
     }
-  }
+}
 
-function reverseString(string, reverse = ''){
-    reverse += string[string.length - 1]
-      if (string.length > 1){
-          let substring = string.substring(0, string.length-1)
-          return reverse = reverseString(substring, reverse)
-      } else {
-          return reverse
-      }
-  }
+function reverseString(string){
+    if(string.length === 0){
+        return ""
+    } else {
+        return string[string.length - 1] + reverseString(string.slice(0, string.length - 1))
+    }  
+}
 
-  function isPalindrome(string){
-      let firstAndLastMatch = string[0] === string[string.length - 1]
-      if (string.length > 1 && firstAndLastMatch){
-          return isPalindrome(string.substring(1, string.length - 1))
-      } else {
-         return firstAndLastMatch
-      }
-  }
+function isPalindrome(string){
+    if (string.length > 1){
+        if(string[0] === string[string.length - 1]){
+            return isPalindrome(string.slice(1, string.length - 1))
+        } else {
+            return false
+        }
+    } else {
+        return true
+    }
+}
 
-  function addUpTo(array, index, sum = 0){
-      sum += array[index]
-      if (index > 0){
-          return addUpTo(array, index - 1, sum)
-      } else {
-          return sum
-      }
-  }
+function addUpTo(array, index){
+    if (index > 0) {
+        return addUpTo(array, index - 1) + array[index]
+    } else {
+        return array[index]
+    }
+}
 
-  function maxOf(array, max = array[0]){
-      if(array.length > 1 && max <= array[0]){
-          max = array[0]
-          return maxOf(array.slice(1), max)
-      } else {
-          return max
-      }
-  }
+function maxOf(array){
+    if(array.length > 1){
+       return Math.max(array.pop(), maxOf(array))
+    } else {
+        return array[0]
+    }
+}
 
-  function includesNumber(array, number, result = false){
-      if(array[0] === number){
-          result = true
-      } else if (array.length > 1) {
-          return includesNumber(array.slice(1), number)
-      }
-      return result
-  }
+function includesNumber(array, num){
+    if(array.shift() === num){
+        return true
+    } else {
+        return array.length > 0 ? includesNumber(array, num) : false
+    }
+}
